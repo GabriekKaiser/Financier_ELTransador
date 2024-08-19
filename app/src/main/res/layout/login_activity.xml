@@ -23,21 +23,25 @@
         android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="35dp"
         android:layout_gravity="center"
-        android:background="#E8F8FF">
+        android:background="#5BE8F8FF">
         <ImageView
+            android:src="@drawable/person"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center"
             />
         <EditText
             android:id="@+id/user"
+            android:textColor="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="2dp"
             android:layout_marginHorizontal="5dp"
-            android:hint="Nombre de Usuario"/>
+            android:hint="Nombre de Usuario"
+            android:background="@android:color/transparent"
+            android:padding="8dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -46,20 +50,23 @@
         android:padding="8dp"
         android:layout_marginTop="25dp"
         android:layout_gravity="center"
-        android:background="#E8F8FF">
+        android:background="#5EE8F8FF">
         <ImageView
-
+            android:src="@drawable/lock_open"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center"
             />
         <EditText
-            android:id="@+id/key"
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="2dp"
             android:layout_marginHorizontal="5dp"
-            android:hint="Contraseña"/>
+            android:hint="Contraseña"
+            android:textColor="@color/white"
+            android:background="@android:color/transparent"
+            android:padding="8dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -94,7 +101,7 @@
             android:text="Entrar"
             />
         <Button
-            android:id="@+id/crear_usuario"
+            android:id="@+id/create_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="2dp"

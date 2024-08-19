@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".LoginActivity"
+    tools:context=".CrearCuenta_Activity"
     android:background="@drawable/fondo"
     >
 
@@ -23,10 +23,11 @@
         android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="35dp"
         android:layout_gravity="center"
-        android:background="#E8F8FF">
+        android:background="#60E8F8FF">
         <ImageView
+            android:src="@drawable/person"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center"
@@ -37,7 +38,9 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="2dp"
             android:layout_marginHorizontal="5dp"
-            android:hint="Nombre de Usuario"/>
+            android:hint="Nombre de Usuario"
+            android:background="@android:color/transparent"
+            android:padding="6dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -46,20 +49,23 @@
         android:padding="8dp"
         android:layout_marginTop="25dp"
         android:layout_gravity="center"
-        android:background="#E8F8FF">
+        android:background="#60E8F8FF">
         <ImageView
-
+            android:src="@drawable/key"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center"
             />
         <EditText
-            android:id="@+id/key"
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="2dp"
             android:layout_marginHorizontal="5dp"
-            android:hint="Contraseña"/>
+            android:hint="Crear Contraseña"
+            android:background="@android:color/transparent"
+            android:padding="6dp"
+            />
     </LinearLayout>
 
     <LinearLayout
@@ -68,35 +74,50 @@
         android:padding="8dp"
         android:layout_marginTop="25dp"
         android:layout_gravity="center"
-        android:background="#E8F8FF">
+        android:background="#68E8F8FF">
         <ImageView
+            android:src="@drawable/key"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center"
             />
         <EditText
-            android:id="@+id/crear_key"
+            android:id="@+id/confirm_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="2dp"
             android:layout_marginHorizontal="5dp"
-            android:hint="Contraseña"/>
+            android:hint="Repetir Contraseña"
+            android:background="@android:color/transparent"
+            android:padding="6dp"
+            />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="30dp"
         android:layout_gravity="center"
         android:orientation="vertical"
         >
         <Button
-            android:id="@+id/entrar"
+            android:id="@+id/button_CreateUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="2dp"
             android:text="Crear Usuario"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ya tengo una Cuenta"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:layout_marginTop="15dp"
+            android:layout_gravity="center_horizontal"
             />
     </LinearLayout>
 
