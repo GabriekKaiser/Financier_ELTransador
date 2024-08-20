@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".LoginActivity"
+    android:background="@drawable/fondo"
+    >
+
+
+    <ImageView
+        android:layout_width="180dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="55dp"
+        android:src="@drawable/logo"
+        />
+
+    <LinearLayout
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:layout_marginTop="35dp"
+        android:layout_gravity="center"
+        android:background="#5BE8F8FF">
+        <ImageView
+            android:src="@drawable/person"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            />
+        <EditText
+            android:id="@+id/user"
+            android:textColor="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="2dp"
+            android:layout_marginHorizontal="5dp"
+            android:hint="Nombre de Usuario"
+            android:background="@android:color/transparent"
+            android:padding="8dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:layout_marginTop="25dp"
+        android:layout_gravity="center"
+        android:background="#5EE8F8FF">
+        <ImageView
+            android:src="@drawable/lock_open"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            />
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="2dp"
+            android:layout_marginHorizontal="5dp"
+            android:hint="Contraseña"
+            android:textColor="@color/white"
+            android:background="@android:color/transparent"
+            android:padding="8dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:layout_marginTop="25dp"
+        android:layout_gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Olvidaste la Contraseña?"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:layout_marginTop="25dp"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        >
+        <Button
+            android:id="@+id/entrar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="2dp"
+            android:text="Entrar"
+            />
+        <Button
+            android:id="@+id/create_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="2dp"
+            android:text="Crear tú usuario o Abre tú cuenta"/>
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
