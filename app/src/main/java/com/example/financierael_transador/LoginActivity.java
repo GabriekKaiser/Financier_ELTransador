@@ -85,13 +85,17 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         if (validUser) {
+            // Guardar el nombre de usuario en SharedPreferences
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("username", inputUserName);
+            editor.apply();
+
             // Credenciales válidas, proceder con el login
             Toast.makeText(this, "Inicio de sesión exitoso.", Toast.LENGTH_SHORT).show();
-            // Aquí puedes navegar a la siguiente pantalla
             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(intent);
-
-        } else {
+            finish(); // Finaliza la LoginActivity para que no pueda regresar al login con el botón de retroceso
+        }else {
             // Credenciales inválidas
             Toast.makeText(this, "Usuario o contraseña incorrectos.", Toast.LENGTH_SHORT).show();
         }

@@ -22,20 +22,32 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="#A9FFFCFC"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:padding="10dp">
-            <ImageView
-                android:layout_width="120dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/savings" />
-            <TextView
-                android:id="@+id/saludo_home"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="start">
+
+                <ImageView
+                    android:id="@+id/back_home"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/arrow_back"
+                    android:layout_gravity="center_vertical" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_gravity="center"
-                />
+                android:layout_marginLeft="80dp">
+                <ImageView
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/savings" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -102,6 +114,7 @@
                     />
 
                 <Spinner
+                    android:id="@+id/spinnerBancos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="35dp"

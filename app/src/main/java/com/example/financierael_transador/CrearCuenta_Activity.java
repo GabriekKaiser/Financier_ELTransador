@@ -44,50 +44,55 @@ public class CrearCuenta_Activity extends AppCompatActivity {
         });
     }
 
-    public void CrearUsuario(){
+    public void CrearUsuario() {
         String name = user.getText().toString();
         String pass = password.getText().toString();
         String confPass = confirmPassword.getText().toString();
 
-        if (name.isEmpty() || pass.isEmpty() || confPass.isEmpty()){
+        if (name.isEmpty() || pass.isEmpty() || confPass.isEmpty()) {
             Toast.makeText(this, "Por favor complete los espacios", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (!pass.equals(confPass)){
-            Toast.makeText(this, "La Contrasena no Coincide. ", Toast.LENGTH_SHORT).show();
+        if (!pass.equals(confPass)) {
+            Toast.makeText(this, "La contraseña no coincide.", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        //cargamos la lista de usuarios
+        // Cargar la lista de usuarios
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("userList", null);
         Type type = new TypeToken<ArrayList<Users>>() {}.getType();
         ArrayList<Users> userList = gson.fromJson(json, type);
 
-        if (userList == null){
+        if (userList == null) {
             userList = new ArrayList<>();
         }
-        for (Users existingUser : userList){
-            if (existingUser.getUsername().equals(name)){
-                Toast.makeText(this, "El Usuario Ya existe. ", Toast.LENGTH_SHORT).show();
+        for (Users existingUser : userList) {
+            if (existingUser.getUsername().equals(name)) {
+                Toast.makeText(this, "El usuario ya existe.", Toast.LENGTH_SHORT).show();
                 return;
             }
         }
-        //add new user on the list
-        userList.add(new Users(name,pass));
 
-        //save the list updating on SharedPreferences
+        // Generar un número de cuenta aleatorio de 6 dígitos
+        String numCuenta = String.format("%06d", (int) (Math.random() * 1000000));
+
+        // Crear el nuevo usuario con saldo inicial de 1000 dólares
+        Users newUser = new Users(name, pass, 1000.0, numCuenta);
+        userList.add(newUser);
+
+        // Guardar la lista actualizada en SharedPreferences
         SharedPreferences.Editor edit = sharedPreferences.edit();
         json = gson.toJson(userList);
         edit.putString("userList", json);
         edit.apply();
 
-        //texto que confirma la creacion de usuarios
-        Toast.makeText(this, "el Usuario ha sido creado con exito", Toast.LENGTH_SHORT).show();
+        // Texto que confirma la creación de usuarios
+        Toast.makeText(this, "El usuario ha sido creado con éxito", Toast.LENGTH_SHORT).show();
 
-        //Nos enviaria a la pantalla de inicio de sesion
+        // Enviar al usuario a la pantalla de inicio de sesión
         Intent intent = new Intent(CrearCuenta_Activity.this, LoginActivity.class);
         startActivity(intent);
         finish();
