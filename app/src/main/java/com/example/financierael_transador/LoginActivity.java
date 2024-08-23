@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 public class LoginActivity extends AppCompatActivity {
     EditText user, password;
     Button entrar, crearCuenta;
+    CheckBox checkBoxCaptcha;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.password);
         entrar = findViewById(R.id.entrar);
         crearCuenta = findViewById(R.id.create_user);
+        checkBoxCaptcha = findViewById(R.id.checkBoxCaptcha);
 
         crearCuenta.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,7 +46,11 @@ public class LoginActivity extends AppCompatActivity {
         entrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validarCredenciales();
+                if (checkBoxCaptcha.isChecked()) {
+                    validarCredenciales();
+                } else {
+                    Toast.makeText(LoginActivity.this, "Por favor, marca la casilla de verificación para continuar.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
