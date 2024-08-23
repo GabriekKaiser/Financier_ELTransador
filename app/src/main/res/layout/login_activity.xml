@@ -69,11 +69,17 @@
             android:padding="8dp"/>
     </LinearLayout>
 
+    <CheckBox
+        android:layout_gravity="center"
+        android:id="@+id/checkBoxCaptcha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No soy un robot" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:layout_marginTop="25dp"
         android:layout_gravity="center">
     <TextView
         android:layout_width="wrap_content"
