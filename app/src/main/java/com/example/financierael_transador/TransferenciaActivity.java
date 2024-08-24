@@ -40,6 +40,8 @@ public class TransferenciaActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+
     }
 
 }
