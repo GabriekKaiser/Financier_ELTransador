@@ -80,6 +80,13 @@
                     android:text="Su Saldo Actual es:"
                     android:layout_marginTop="5dp"
                     />
+                <TextView
+                    android:id="@+id/saldo"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    />
 
                 <TextView
                     android:layout_gravity="center"
@@ -95,6 +102,7 @@
                     android:layout_marginTop="5dp"
                     android:hint="Nombre de quien recibe"
                     android:textAlignment="center"
+                    android:inputType="textPersonName"
                     />
 
                 <TextView
@@ -111,6 +119,7 @@
                     android:layout_marginTop="5dp"
                     android:hint="$120.00"
                     android:textAlignment="center"
+                    android:inputType="number"
                     />
 
                 <Spinner
