@@ -38,6 +38,8 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.gson)
+    implementation (libs.okhttp3.logging.interceptor)
+    implementation (libs.okhttp)
     implementation (libs.retrofit)
     implementation (libs.converter.gson)
     testImplementation(libs.junit)

@@ -1,4 +1,4 @@
-package com.example.financierael_transador;
+package com.example.financierael_transador.Modulos;
 
 public class Users {
     private Integer id;
