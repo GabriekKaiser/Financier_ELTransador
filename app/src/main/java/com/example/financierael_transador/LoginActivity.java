@@ -3,20 +3,28 @@ package com.example.financierael_transador;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.financierael_transador.Modulos.Users;
+import com.example.financierael_transador.Servicios.ApiInterface;
+import com.example.financierael_transador.Servicios.ApiService;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
     EditText user, password;
@@ -34,29 +42,22 @@ public class LoginActivity extends AppCompatActivity {
         crearCuenta = findViewById(R.id.create_user);
         checkBoxCaptcha = findViewById(R.id.checkBoxCaptcha);
 
-        crearCuenta.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, CrearCuenta_Activity.class);
-                startActivity(intent);
-                finish();
-            }
+        crearCuenta.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, CrearCuenta_Activity.class);
+            startActivity(intent);
+            finish();
         });
 
-        // Validar las credenciales cuando el usuario toca Entrar
-        entrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (checkBoxCaptcha.isChecked()) {
-                    validarCredenciales();
-                } else {
-                    Toast.makeText(LoginActivity.this, "Por favor, marca la casilla de verificación para continuar.", Toast.LENGTH_SHORT).show();
-                }
+        entrar.setOnClickListener(v -> {
+            if (checkBoxCaptcha.isChecked()) {
+                validarCredenciales();
+            } else {
+                Toast.makeText(LoginActivity.this, "Por favor, marca la casilla de verificación para continuar.", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    public void validarCredenciales() {
+    private void validarCredenciales() {
         String inputUserName = user.getText().toString();
         String inputPassword = password.getText().toString();
 
@@ -65,41 +66,28 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        // Cargar la lista de usuarios desde SharedPreferences
-        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("userList", null);
-        Type type = new TypeToken<ArrayList<Users>>() {}.getType();
-        ArrayList<Users> userList = gson.fromJson(json, type);
+        ApiInterface apiService = ApiService.getApiService();
+        Call<Users> call = apiService.buscarUsuario(inputUserName, inputPassword);
 
-        if (userList == null) {
-            Toast.makeText(this, "No hay usuarios registrados.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        boolean validUser = false;
-        for (Users user : userList) {
-            if (user.getUsername().equals(inputUserName) && user.getPassword().equals(inputPassword)) {
-                validUser = true;
-                break;
+        call.enqueue(new Callback<Users>() {
+            @Override
+            public void onResponse(@NonNull Call<Users> call, @NonNull Response<Users> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Users user = response.body();
+                    Toast.makeText(LoginActivity.this, "Inicio de sesión exitoso.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(LoginActivity.this, "Usuario o contraseña incorrectos.", Toast.LENGTH_SHORT).show();
+                }
             }
-        }
 
-        if (validUser) {
-            // Guardar el nombre de usuario en SharedPreferences
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("username", inputUserName);
-            editor.apply();
-
-            // Credenciales válidas, proceder con el login
-            Toast.makeText(this, "Inicio de sesión exitoso.", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-            startActivity(intent);
-            finish(); // Finaliza la LoginActivity para que no pueda regresar al login con el botón de retroceso
-        } else {
-            // Credenciales inválidas
-            Toast.makeText(this, "Usuario o contraseña incorrectos.", Toast.LENGTH_SHORT).show();
-        }
+            @Override
+            public void onFailure(@NonNull Call<Users> call, @NonNull Throwable t) {
+                Toast.makeText(LoginActivity.this, "Error de red: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
-
 }
+

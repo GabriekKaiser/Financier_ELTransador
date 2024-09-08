@@ -76,7 +76,7 @@ public class CrearCuenta_Activity extends AppCompatActivity {
         newUser.setEmail(emailStr);
 
         ApiInterface apiService = ApiService.getApiService();
-        Call<Users> call = apiService.GuardarUsuario(newUser);
+        Call<Users> call = apiService.guardarUsuario(newUser);
         call.enqueue(new Callback<Users>() {
             @Override
             public void onResponse(@NonNull Call<Users> call, @NonNull Response<Users> response) {
