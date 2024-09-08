@@ -1,44 +1,42 @@
 package com.example.financierael_transador;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.content.SharedPreferences;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 
-import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import kotlin.reflect.KType;
+import com.example.financierael_transador.Modulos.Users;
+import com.example.financierael_transador.Servicios.ApiInterface;
+import com.example.financierael_transador.Servicios.ApiService;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CrearCuenta_Activity extends AppCompatActivity {
-    EditText user, password, confirmPassword;
-    Button buttonCreateUser, backLogin;
-    TextView back;
+    EditText user, password, confirmPassword, email;
+    Button buttonCreateUser;
+    TextView backLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.crear_cuenta_activity);
 
+        // Asegúrate de que los IDs coincidan con los del layout XML
         user = findViewById(R.id.user);
         password = findViewById(R.id.password);
         confirmPassword = findViewById(R.id.confirm_password);
+        email = findViewById(R.id.email);
         buttonCreateUser = findViewById(R.id.button_CreateUser);
-        back = findViewById(R.id.back_login);
+        backLogin = findViewById(R.id.back_login);
 
-        //Aqui le asignamos a el boton su funcion CrearUsuario
         buttonCreateUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,10 +44,9 @@ public class CrearCuenta_Activity extends AppCompatActivity {
             }
         });
 
-        back.setOnClickListener(new View.OnClickListener() {
+        backLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Intent para volver a la pantalla de inicio
                 Intent intent = new Intent(CrearCuenta_Activity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
@@ -61,9 +58,10 @@ public class CrearCuenta_Activity extends AppCompatActivity {
         String name = user.getText().toString();
         String pass = password.getText().toString();
         String confPass = confirmPassword.getText().toString();
+        String emailStr = email.getText().toString();
 
-        if (name.isEmpty() || pass.isEmpty() || confPass.isEmpty()) {
-            Toast.makeText(this, "Por favor complete los espacios", Toast.LENGTH_SHORT).show();
+        if (name.isEmpty() || pass.isEmpty() || confPass.isEmpty() || emailStr.isEmpty()) {
+            Toast.makeText(this, "Por favor complete todos los campos", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -72,6 +70,31 @@ public class CrearCuenta_Activity extends AppCompatActivity {
             return;
         }
 
+        Users newUser = new Users();
+        newUser.setUsername(name);
+        newUser.setPassword(pass);
+        newUser.setEmail(emailStr);
 
+        ApiInterface apiService = ApiService.getApiService();
+        Call<Users> call = apiService.GuardarUsuario(newUser);
+        call.enqueue(new Callback<Users>() {
+            @Override
+            public void onResponse(@NonNull Call<Users> call, @NonNull Response<Users> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Users user = response.body();
+                    Toast.makeText(CrearCuenta_Activity.this, "Usuario creado exitosamente.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(CrearCuenta_Activity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(CrearCuenta_Activity.this, "Error al crear usuario: " + response.message(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Users> call, @NonNull Throwable t) {
+                Toast.makeText(CrearCuenta_Activity.this, "Error en la solicitud: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

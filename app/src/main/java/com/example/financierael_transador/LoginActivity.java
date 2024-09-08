@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        //Validar las creedenciales cuando el usuario toca Entrar
+        // Validar las credenciales cuando el usuario toca Entrar
         entrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,17 +55,17 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    public void validarCredenciales(){
 
+    public void validarCredenciales() {
         String inputUserName = user.getText().toString();
         String inputPassword = password.getText().toString();
 
-        if (inputUserName.isEmpty() || inputPassword.isEmpty()){
-            Toast.makeText(this,"Por Favor ingrese su usuario y contrasena", Toast.LENGTH_SHORT).show();
+        if (inputUserName.isEmpty() || inputPassword.isEmpty()) {
+            Toast.makeText(this, "Por favor, ingrese su usuario y contraseña", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        //Cargar La Lista de usuarios desde SharedPreferences
+        // Cargar la lista de usuarios desde SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("userList", null);
@@ -96,10 +96,10 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(intent);
             finish(); // Finaliza la LoginActivity para que no pueda regresar al login con el botón de retroceso
-        }else {
+        } else {
             // Credenciales inválidas
             Toast.makeText(this, "Usuario o contraseña incorrectos.", Toast.LENGTH_SHORT).show();
         }
-
     }
+
 }
